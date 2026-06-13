@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Multi-Agent AI Deep Researcher — Architecture</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+  }
+  h1 {
+    font-size: 24px;
+    color: #58a6ff;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .subtitle {
+    color: #8b949e;
+    font-size: 14px;
+    margin-bottom: 48px;
+    text-align: center;
+  }
+  .pipeline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    max-width: 700px;
+  }
+  .user-box {
+    background: #1f6feb;
+    border-radius: 12px;
+    padding: 16px 32px;
+    text-align: center;
+    width: 300px;
+    margin-bottom: 0;
+  }
+  .user-box .label { font-size: 18px; font-weight: 700; }
+  .user-box .sublabel { font-size: 12px; color: #cdd9e5; margin-top: 4px; }
+  .arrow {
+    width: 2px;
+    height: 40px;
+    background: #30363d;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .arrow::after {
+    content: '▼';
+    color: #58a6ff;
+    position: absolute;
+    bottom: -8px;
+    font-size: 14px;
+  }
+  .agent-card {
+    border-radius: 12px;
+    padding: 20px 24px;
+    width: 100%;
+    border: 1px solid #30363d;
+    position: relative;
+  }
+  .agent-card .number {
+    position: absolute;
+    top: -14px;
+    left: 24px;
+    background: #0d1117;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid #30363d;
+  }
+  .agent-card .name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .agent-card .desc {
+    font-size: 13px;
+    color: #8b949e;
+    margin-bottom: 10px;
+  }
+  .agent-card .tools {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .tool-badge {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 11px;
+    color: #8b949e;
+  }
+  .agent-card .output {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #3fb950;
+    font-style: italic;
+  }
+  .a1 { background: #0f2a1a; border-color: #3fb950; }
+  .a1 .number { color: #3fb950; border-color: #3fb950; }
+  .a2 { background: #0f1f2a; border-color: #58a6ff; }
+  .a2 .number { color: #58a6ff; border-color: #58a6ff; }
+  .a3 { background: #2a1a0f; border-color: #e3b341; }
+  .a3 .number { color: #e3b341; border-color: #e3b341; }
+  .a4 { background: #1f0f2a; border-color: #bc8cff; }
+  .a4 .number { color: #bc8cff; border-color: #bc8cff; }
+  .a5 { background: #2a0f0f; border-color: #f85149; }
+  .a5 .number { color: #f85149; border-color: #f85149; }
+  .output-box {
+    background: #161b22;
+    border: 1px solid #3fb950;
+    border-radius: 12px;
+    padding: 16px 24px;
+    width: 100%;
+    text-align: center;
+  }
+  .output-box .label { color: #3fb950; font-weight: 700; font-size: 16px; }
+  .output-box .sublabel { color: #8b949e; font-size: 12px; margin-top: 4px; }
+  .tech-stack {
+    margin-top: 48px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .tech-badge {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #8b949e;
+  }
+  .tech-badge span { color: #58a6ff; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<h1>🧠 Multi-Agent AI Deep Researcher</h1>
+<p class="subtitle">LangGraph + DeepSeek V3 + Tavily — Hackathon Architecture</p>
+
+<div class="pipeline">
+
+  <div class="user-box">
+    <div class="label">👤 User Input</div>
+    <div class="sublabel">Research topic entered via terminal</div>
+  </div>
+
+  <div class="arrow"></div>
+
+  <div class="agent-card a1">
+    <div class="number">AGENT 1</div>
+    <div class="name">🗺️ Query Planner</div>
+    <div class="desc">Breaks the topic into 4 targeted sub-questions covering different research angles</div>
+    <div class="tools">
+      <span class="tool-badge">DeepSeek V3</span>
+      <span class="tool-badge">LangChain Prompts</span>
+    </div>
+    <div class="output">→ Outputs: List of 4 sub-questions</div>
+  </div>
+
+  <div class="arrow"></div>
+
+  <div class="agent-card a2">
+    <div class="number">AGENT 2</div>
+    <div class="name">🌐 Contextual Retriever</div>
+    <div class="desc">Searches the live web for each sub-question — fetches titles, URLs, and content snippets</div>
+    <div class="tools">
+      <span class="tool-badge">Tavily Search API</span>
+      <span class="tool-badge">Live Web</span>
+    </div>
+    <div class="output">→ Outputs: 12 real web sources with content</div>
+  </div>
+
+  <div class="arrow"></div>
+
+  <div class="agent-card a3">
+    <div class="number">AGENT 3</div>
+    <div class="name">🔬 Critical Analyst</div>
+    <div class="desc">Summarizes each source, scores credibility, and flags contradictions between sources</div>
+    <div class="tools">
+      <span class="tool-badge">DeepSeek V3</span>
+      <span class="tool-badge">LangChain Prompts</span>
+    </div>
+    <div class="output">→ Outputs: Summaries + contradiction analysis</div>
+  </div>
+
+  <div class="arrow"></div>
+
+  <div class="agent-card a4">
+    <div class="number">AGENT 4</div>
+    <div class="name">💡 Insight Generator</div>
+    <div class="desc">Reasons across all findings to surface trends, hypotheses, implications and open questions</div>
+    <div class="tools">
+      <span class="tool-badge">DeepSeek V3</span>
+      <span class="tool-badge">Chain of Thought</span>
+    </div>
+    <div class="output">→ Outputs: Trends, hypotheses, implications</div>
+  </div>
+
+  <div class="arrow"></div>
+
+  <div class="agent-card a5">
+    <div class="number">AGENT 5</div>
+    <div class="name">📝 Report Builder</div>
+    <div class="desc">Compiles everything into a structured markdown report with executive summary and citations</div>
+    <div class="tools">
+      <span class="tool-badge">DeepSeek V3</span>
+      <span class="tool-badge">Markdown Output</span>
+    </div>
+    <div class="output">→ Outputs: Full research report saved as .md file</div>
+  </div>
+
+  <div class="arrow"></div>
+
+  <div class="output-box">
+    <div class="label">📄 Final Research Report</div>
+    <div class="sublabel">Executive Summary · Findings · Contradictions · Insights · Sources</div>
+  </div>
+
+</div>
+
+<div class="tech-stack">
+  <div class="tech-badge">🐍 <span>Python 3.9</span></div>
+  <div class="tech-badge">🔗 <span>LangGraph</span> — Agent Orchestration</div>
+  <div class="tech-badge">🧠 <span>DeepSeek V3</span> via OpenRouter</div>
+  <div class="tech-badge">🔍 <span>Tavily</span> — Live Web Search</div>
+  <div class="tech-badge">⛓️ <span>LangChain</span> — Prompt Management</div>
+</div>
+
+</body>
+</html>
