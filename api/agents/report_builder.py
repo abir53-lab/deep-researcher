@@ -2,7 +2,7 @@ import sys
 import os
 
 from langchain_openai import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate
 from config import OPENROUTER_API_KEY, OPENROUTER_BASE_URL, MODEL_NAME
 from datetime import datetime
 

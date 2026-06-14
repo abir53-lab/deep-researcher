@@ -4,7 +4,7 @@ import os
 # This tells Python to look in the root project folder for config.py
 
 from langchain_openai import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate
 from config import OPENROUTER_API_KEY, OPENROUTER_BASE_URL, MODEL_NAME
 
 # This sets up the LLM connection via OpenRouter
