@@ -139,12 +139,9 @@ def run_report_builder(topic: str, sub_queries: list, analysis: dict, insights: 
     response = llm.invoke(formatted_prompt)
     report = response.content.strip()
     
-    # Save report to a file
+    # On Vercel filesystem is read-only so we skip saving
     filename = f"report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md"
-    with open(filename, "w") as f:
-        f.write(report)
-    
-    print(f"✅ Report complete — saved as {filename}")
+    print(f"✅ Report complete")
     return report, filename
 
 
