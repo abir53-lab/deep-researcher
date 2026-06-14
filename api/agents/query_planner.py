@@ -2,7 +2,6 @@ import sys
 import os
 
 # This tells Python to look in the root project folder for config.py
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
