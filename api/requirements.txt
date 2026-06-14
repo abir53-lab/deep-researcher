@@ -1,10 +1,12 @@
+fastapi
+uvicorn
 langchain
 langchain-openai
 langchain-community
+langchain-core
 langgraph
 tavily-python
 python-dotenv
-fastapi
-uvicorn
 openai
 requests
+pydantic
